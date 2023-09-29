@@ -1,6 +1,18 @@
 <template>
-  <HeaderBarComponent></HeaderBarComponent>
-  <SideBarComponent></SideBarComponent>
+  <div class="d-flex">
+    <div id="sidebar" class="sidebar-mobile col-6 col-lg-2">
+      <SideBarComponent></SideBarComponent>
+    </div>
+    
+    <div class="col-lg-10 col-12">
+      <HeaderBarComponent></HeaderBarComponent>
+
+      <div class="container mt-3">
+        <!-- Router view -->
+        <HomeTabComponent></HomeTabComponent>
+      </div>
+    </div>
+  </div>
 
   <div class="d-block d-lg-none">
     <CartComponent></CartComponent>
@@ -8,6 +20,7 @@
 </template>
 
 <script setup>
+  import HomeTabComponent from './components/tabs/HomeTabComponent.vue';
   import HeaderBarComponent from './components/dashboard/HeaderBarComponent.vue';
   import SideBarComponent from './components/dashboard/SideBarComponent.vue';
   import CartComponent from './components/dashboard/CartComponent.vue';
@@ -16,5 +29,11 @@
 <style> 
   body {
     background-color: rgb(95, 95, 95);
+  }
+
+  @media (max-width: 544px) { 
+    .sidebar-mobile {
+      position: absolute;
+    }
   }
 </style>

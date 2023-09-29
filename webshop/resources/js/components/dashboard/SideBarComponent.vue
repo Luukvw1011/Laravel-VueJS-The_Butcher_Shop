@@ -1,33 +1,28 @@
 <template>
-    <nav id="sidebar" class="d-none d-lg-block container-fluid">
-        <div class="row flex-nowrap">
-            <div class="bg-dark col-6 col-lg-2 min-vh-100">
-                <div class="bg-dark text-white">
-                    <div class="d-flex justify-content-end justify-content-lg-start mt-2">
-                        <icon @click="closeSideBar" class="fs-1 d-lg-none" icon="fa-solid fa-xmark"></icon>
-                        <button class="account-button fs-3 d-none d-lg-block bg-primary text-white">
-                            <icon icon="fa-solid fa-user"></icon>
-                        </button>
-                    </div>
+    <nav class="bg-dark text-white">
+        <div class="d-flex justify-content-end">
+            <icon @click="closeSideBar" class="me-1 mt-1 fs-1 d-lg-none" icon="fa-solid fa-close"></icon>
+        </div>
 
-                    <ul class="nav nav-pills p-2 flex-column mt-4 align-items-center align-items-lg-end">
-                        <li class="nav-item d-lg-none">Account</li>
-                        <li class="nav-item">Home</li>
-                        <li class="nav-item">Category's</li>
-                        <li class="nav-item">Sale</li>
-                    </ul>
+        <div class="d-flex justify-content-center justify-content-lg-end mt-lg-4">
+            <icon class="fs-4 d-none d-lg-block" icon="fa-solid fa-user"></icon>
 
-                    <div class="shopping-cart-mobile d-lg-none">
-                        <icon icon="fas-solid fa-cart-shopping"></icon>
-                    </div>
+            <ul class="nav nav-pills p-2 flex-column mt-4 align-items-center align-items-lg-end">
+                <li class="nav-item d-lg-none">Account</li>
+                <li class="nav-item">Home</li>
+                <li class="nav-item">Category's</li>
+                <li class="nav-item">Sale</li>
+            </ul>
+        </div>
 
-                    <div class="shopping-cart-desktop d-none d-lg-flex justify-content-center">
-                        <button class="button bg-primary text-center text-white p-2 px-4">
-                            Shopping Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="shopping-cart-mobile d-lg-none">
+            <icon icon="fas-solid fa-cart-shopping"></icon>
+        </div>
+
+        <div class="shopping-cart-desktop d-none d-lg-flex justify-content-center align-items-end">
+            <button class="bg-primary text-white">
+                <icon icon="fas-solid fa-cart-shopping"></icon>
+            </button>
         </div>
     </nav>
 </template>
@@ -49,7 +44,7 @@ export default {
 
 <style scoped>
     nav {
-        position: absolute;
+        height: 100vh;
     }
 
     ul li {
@@ -59,28 +54,24 @@ export default {
     .shopping-cart-mobile {
         position: absolute;
         bottom: 20px;
-        right: 70%;
+        left: 50%; 
     }
 
     .shopping-cart-mobile :first-child {
         font-size: 55px;
+        position: relative;
+        left: -50%;
     }
 
     .shopping-cart-desktop {
-        position: absolute;
-        bottom: 20px;
-        left: 40px;
+        height: 66%;
     }
 
     .shopping-cart-desktop button {
         border: none;
         border-radius: 10px;
-    }
-
-    .account-button {
-        padding: 10px 15px;
-        border: none;
-        border-radius: 20%;
+        padding: 10px 0;
+        width: 90%;
     }
 
     @media (min-width: 992px) { 
