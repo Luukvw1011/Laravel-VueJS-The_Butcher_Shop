@@ -5,20 +5,26 @@
 </template>
 
 <script>
-export default {
+    window.addEventListener("scroll", function (event) {
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
 
-}
+        if (window.scrollY >= scrollableHeight) {
+            document.getElementById("cart-button").style.display = "none"
+        } else {
+            document.getElementById("cart-button").style.display = "block"
+        }
+    })
 </script>
 
 <style scoped>
     button {
-        position: absolute;
+        position: fixed;
         bottom: 10px;
         left: 20px;
         width: 210px;
         height: 70px;
         border: none;
         border-radius: 30px;
-        z-index: -1;
-    }
+        z-index: 1;
+    }  
 </style>

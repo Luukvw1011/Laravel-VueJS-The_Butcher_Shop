@@ -10,7 +10,7 @@
             <ul class="nav nav-pills p-2 flex-column mt-4 align-items-center align-items-lg-end">
                 <li class="nav-item d-lg-none">Account</li>
                 <li class="nav-item">Home</li>
-                <li class="nav-item">Category's</li>
+                <li class="nav-item">Categories</li>
                 <li class="nav-item">Sale</li>
             </ul>
         </div>
@@ -32,7 +32,7 @@ export default {
     setup() {
         function closeSideBar () {
             document.getElementById("sidebar").classList.add("d-none");
-            document.getElementById("cart-button").classList.remove("d-none")
+            document.getElementById("cart-button").classList.remove("d-none");
         }
 
         return {
@@ -44,7 +44,10 @@ export default {
 
 <style scoped>
     nav {
+        position: fixed;
         height: 100vh;
+        width: 50vw;
+        z-index: 2;
     }
 
     ul li {
@@ -76,6 +79,13 @@ export default {
 
     @media (min-width: 992px) { 
         li {font-size: 20px;}
+
+        nav {
+            position: fixed;
+            height: 100vh;
+            width: 16.5vw;
+            z-index: 2;
+        }
     }
 
     @media (max-width: 544px) { 
