@@ -9,9 +9,9 @@
 
             <ul class="nav nav-pills p-2 flex-column mt-4 align-items-center align-items-lg-end">
                 <li class="nav-item d-lg-none">Account</li>
-                <li class="nav-item">Home</li>
-                <li class="nav-item">Categories</li>
-                <li class="nav-item">Sale</li>
+                <li class="nav-item"><router-link to="/">Home</router-link></li>
+                <li class="nav-item"><router-link to="/categories">Categories</router-link></li>
+                <li class="nav-item"><router-link to="/sale">Sale</router-link></li>
             </ul>
         </div>
 

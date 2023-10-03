@@ -9,7 +9,7 @@
 
       <div class="container mt-3">
         <!-- Router view -->
-        <HomeTabComponent></HomeTabComponent>
+        <router-view></router-view> 
       </div>
     </div>
   </div>
@@ -20,7 +20,6 @@
 </template>
 
 <script setup>
-  import HomeTabComponent from './components/tabs/HomeTabComponent.vue';
   import HeaderBarComponent from './components/dashboard/HeaderBarComponent.vue';
   import SideBarComponent from './components/dashboard/SideBarComponent.vue';
   import CartComponent from './components/dashboard/CartComponent.vue';
