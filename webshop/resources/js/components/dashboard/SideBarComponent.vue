@@ -73,7 +73,9 @@ export default {
     }
 
     .shopping-cart-desktop {
-        height: 66%;
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
     }
 
     .shopping-cart-desktop button {

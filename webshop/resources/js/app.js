@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.css"
 //Add font awesome. 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBars, faXmark, faUser, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark, faUser, faCartShopping, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars, faXmark, faUser, faCartShopping);
+library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft);
 
 //Create vue app instance.
 import { createApp } from 'vue';
