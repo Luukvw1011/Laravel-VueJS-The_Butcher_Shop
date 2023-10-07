@@ -1,5 +1,5 @@
 <template>
-    <button id="cart-button" type="button" class="badge bg-primary">
+    <button @click="navigateToShoppingCart" id="cart-button" type="button" class="badge bg-primary">
         <icon class="fs-1" icon="fas-solid fa-cart-shopping"></icon>
     </button>
 </template>
@@ -14,6 +14,18 @@
             document.getElementById("cart-button").style.display = "block"
         }
     })
+
+    export default {
+        setup() {
+            function navigateToShoppingCart () {
+                window.location.href = "/shopping_cart";
+            }
+
+            return {
+                navigateToShoppingCart,
+            }
+        }
+    }
 </script>
 
 <style scoped>

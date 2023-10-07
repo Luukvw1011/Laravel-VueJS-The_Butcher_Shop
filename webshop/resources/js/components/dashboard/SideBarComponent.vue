@@ -16,11 +16,11 @@
         </div>
 
         <div class="shopping-cart-mobile d-lg-none">
-            <icon icon="fas-solid fa-cart-shopping"></icon>
+            <router-link to="/shopping_cart"><icon icon="fas-solid fa-cart-shopping"></icon></router-link>
         </div>
 
         <div class="shopping-cart-desktop d-none d-lg-flex justify-content-center align-items-end">
-            <button class="bg-primary text-white">
+            <button @click="navigateToShoppingCart" class="bg-primary text-white">
                 <icon icon="fas-solid fa-cart-shopping"></icon>
             </button>
         </div>
@@ -32,11 +32,15 @@ export default {
     setup() {
         function closeSideBar () {
             document.getElementById("sidebar").classList.add("d-none");
-            document.getElementById("cart-button").classList.remove("d-none");
+        }
+
+        function navigateToShoppingCart () {
+            window.location.href = "/shopping_cart"
         }
 
         return {
             closeSideBar,
+            navigateToShoppingCart,
         }
     }
 }
@@ -60,14 +64,17 @@ export default {
         left: 50%; 
     }
 
-    .shopping-cart-mobile :first-child {
+    .shopping-cart-mobile :first-child *{
         font-size: 55px;
         position: relative;
         left: -50%;
+        color: white;
     }
 
     .shopping-cart-desktop {
-        height: 66%;
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
     }
 
     .shopping-cart-desktop button {

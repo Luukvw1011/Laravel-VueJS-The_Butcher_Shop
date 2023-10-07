@@ -39,10 +39,6 @@ export default {
 </script>
 
 <style scoped>
-  .sub-header {
-    background-color: rgb(226, 226, 226);
-  }
-
   .category-section {
     display: grid;
     grid-template-rows: auto auto auto;

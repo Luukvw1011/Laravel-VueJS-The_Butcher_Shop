@@ -12,7 +12,6 @@ export default {
 
         function openSideBar () {
             document.getElementById("sidebar").classList.remove("d-none");
-            document.getElementById("cart-button").remove()
         }      
 
         return {
