@@ -32,7 +32,6 @@ export default {
     setup() {
         function closeSideBar () {
             document.getElementById("sidebar").classList.add("d-none");
-            document.getElementById("cart-button").classList.remove("d-none");
         }
 
         function navigateToShoppingCart () {
