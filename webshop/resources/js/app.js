@@ -14,6 +14,7 @@ import App from './App.vue';
 //Import vue components.
 import HomeTabComponent from './components/tabs/HomeTabComponent.vue'
 import CartTabComponent from './components/tabs/CartTabComponent.vue'
+import CategoriesTabComponent from './components/tabs/CategoriesTabComponent.vue'
 
 //Create vue-router instance.
 import { createRouter, createWebHistory } from 'vue-router'
@@ -28,6 +29,10 @@ const router = createRouter({
         {
             path: '/shopping_cart',
             component: CartTabComponent
+        },
+        {
+            path: '/categories',
+            component: CategoriesTabComponent
         }
     ]
 })
