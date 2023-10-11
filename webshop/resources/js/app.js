@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.css"
 //Add font awesome. 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBars, faXmark, faUser, faCartShopping, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft);
+library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash);
 
 //Create vue app instance.
 import { createApp } from 'vue';
@@ -15,6 +15,7 @@ import App from './App.vue';
 import HomeTabComponent from './components/tabs/HomeTabComponent.vue'
 import CartTabComponent from './components/tabs/CartTabComponent.vue'
 import CategoriesTabComponent from './components/tabs/CategoriesTabComponent.vue'
+import SingleCategoryScreen from './components/tabs/SingleCategoryScreen.vue'
 
 //Create vue-router instance.
 import { createRouter, createWebHistory } from 'vue-router'
@@ -33,6 +34,12 @@ const router = createRouter({
         {
             path: '/categories',
             component: CategoriesTabComponent
+        },
+        {
+            path: '/category/:meat',
+            name: 'category',
+            component: SingleCategoryScreen,
+            
         }
     ]
 })
