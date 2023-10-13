@@ -20,7 +20,7 @@
 
         <div class="d-flex flex-column mb-3">
             <!-- This will be a image  -->
-            <div class="img-container align-self-center">&nbsp;</div>
+            <img class="img-container align-self-center" :src='product.picture' alt="niet beschikbaar">
             <div class="amount-container d-flex align-self-center align-items-center gap-2">
                 <button>-</button>
                 <span>0</span>
@@ -88,7 +88,6 @@ export default {
         height: 150px;
         width: 150px;
         margin-bottom: 15px;
-        background-color: rgb(70, 70, 70);
     }
 
     @media (max-width: 544px) { 

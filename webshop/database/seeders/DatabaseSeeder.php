@@ -14,25 +14,26 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         //This seed action is for generating test data only. 
-        // $csvFile = fopen(public_path("data/meat.csv"), "r");
-        // $id = 0;
+        $csvFile = fopen(public_path("data/meat.csv"), "r");
+        $id = 0;
 
-        // $firstline = true;
-        // while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
-        //     if (!$firstline) {
-        //         Product::create([
-        //             "id" => $id,
-        //             "name" => $data[0],
-        //             "type" => $data[1],
-        //             "description" => $data[2],
-        //             "stock" => 0,
-        //         ]);
-        //     }
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            if (!$firstline) {
+                Product::create([
+                    "id" => $id,
+                    "name" => $data[0],
+                    "type" => $data[1],
+                    "description" => $data[2],
+                    "stock" => 0,
+                    "picture" => fake()->imageUrl(640, 480, $data[0], true)
+                ]);
+            }
 
-        //     $id++;
-        //     $firstline = false;
-        // }
+            $id++;
+            $firstline = false;
+        }
 
-        // fclose($csvFile);
+        fclose($csvFile);
     }
 }
