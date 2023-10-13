@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Product;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +13,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        //This seed action is for generating test data only. 
+        $csvFile = fopen(public_path("data/meat.csv"), "r");
+        $id = 0;
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            if (!$firstline) {
+                Product::create([
+                    "id" => $id,
+                    "name" => $data[0],
+                    "type" => $data[1],
+                    "description" => $data[2],
+                    "stock" => 0,
+                    "picture" => fake()->imageUrl(640, 480, $data[0], true)
+                ]);
+            }
+
+            $id++;
+            $firstline = false;
+        }
+
+        fclose($csvFile);
     }
 }

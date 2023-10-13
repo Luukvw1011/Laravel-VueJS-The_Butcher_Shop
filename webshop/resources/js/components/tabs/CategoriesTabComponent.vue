@@ -25,9 +25,9 @@ export default {
 
     let meat_arr = ref([
       {name: "Beef"},
-      {name: "Chicken"},
-      {name: "Pig"},
-      {name: "Fish"},
+      {name: "Poultry"},
+      {name: "Pork"},
+      {name: "Seafood"},
       {name: "Lamb"},
       {name: "Wild"},
     ]);
