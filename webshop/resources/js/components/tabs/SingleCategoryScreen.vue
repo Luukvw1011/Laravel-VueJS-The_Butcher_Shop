@@ -4,9 +4,10 @@
   </div>
 
   <div class="all-cuts-section d-flex flex-wrap gap-4 justify-content-center">
-    <div class="product-card p-3 rounded">
+    <div class="product-card p-3 rounded" v-for="product in products">
         <div class="d-flex justify-content-between mb-1">
-            <span>in stock (2)</span>
+            <!-- <span>in stock ({{ product.stock }})</span> -->
+            <p>in stock <span>({{ product.stock }})</span></p>
 
             <button class="border-0 bg-transparent">
                 <icon icon="fa-solid fa-info-circle" class="fs-4"></icon>
@@ -14,7 +15,7 @@
         </div>
 
         <div class="d-flex justify-content-center mb-3">
-            <span>product name</span>
+            <span>{{product.name}}</span>
         </div>
 
         <div class="d-flex flex-column mb-3">
@@ -22,7 +23,7 @@
             <div class="img-container align-self-center">&nbsp;</div>
             <div class="amount-container d-flex align-self-center align-items-center gap-2">
                 <button>-</button>
-                <span>2</span>
+                <span>0</span>
                 <button>+</button>
             </div>
         </div>
@@ -36,30 +37,38 @@
 
 <script>
 import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+import { ref, watchEffect } from 'vue'
+import axios from 'axios'
 
 export default {
     setup () {
         const route = useRoute();
         const typeOfCut = ref();
+        
+        let products = ref(); 
 
-        let meat_arr = ['beef', 'chicken', 'pig', 'fish', 'lamb', 'wild'];
+        let meat_arr = ['beef', 'poultry', 'pork', 'seafood', 'lamb', 'wild'];
 
-        watch (
-            () => {
-                let selectedCut = route.params.meat;
+        watchEffect(() => {
+            let selectedCut = route.params.meat;
 
-                if (meat_arr.includes(selectedCut)) {
-                    typeOfCut.value = selectedCut.charAt(0).toUpperCase() + selectedCut.slice(1);
-                } else {
-                    //Error Message
-                    typeOfCut.value = "empty";
-                } 
-            }
-        )
+            if (meat_arr.includes(selectedCut)) {
+                typeOfCut.value = selectedCut.charAt(0).toUpperCase() + selectedCut.slice(1);
+
+                axios.get(`http://127.0.0.1:8000/api/products/${typeOfCut.value}`)
+                    .then(res => {
+                        products.value = res.data;
+                        console.log(products.value)
+                    })
+            } else {
+                //Error Message
+                typeOfCut.value = "empty";
+            } 
+        })
 
         return {
             typeOfCut,
+            products,
         }
     }
 }
