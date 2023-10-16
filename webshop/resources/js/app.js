@@ -20,6 +20,9 @@ import SingleCategoryScreen from './components/tabs/SingleCategoryScreen.vue'
 //Create vue-router instance.
 import { createRouter, createWebHistory } from 'vue-router'
 
+//Create vue-final-modal instance.
+import { vfmPlugin } from 'vue-final-modal'
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -45,6 +48,11 @@ const router = createRouter({
 })
 
 createApp(App)
+    .use(vfmPlugin({
+        key: '$vfm',
+        componentName: 'VueFinalModal',
+        dynamicContainerName: 'ModalsContainer'
+    }))
     .use(router)
     .component('icon', FontAwesomeIcon)
     .mount('#app')
