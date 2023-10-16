@@ -96,7 +96,6 @@ export default {
                 axios.get(`http://127.0.0.1:8000/api/products/${typeOfCut.value}`)
                     .then(res => {
                         products.value = res.data;
-                        console.log(products.value)
                     })
             } else {
                 //Error Message
@@ -117,12 +116,13 @@ export default {
 </script>
 
 <style scoped>
-    ::v-deep .modal-container {
+    :deep(.modal-container) {
         display: flex;
         justify-content: center;
         padding: 60px;
     }
-    ::v-deep .modal-content {
+
+    :deep(.modal-content) {
         display: flex;
         padding: 1rem;
         width: 100vw;
