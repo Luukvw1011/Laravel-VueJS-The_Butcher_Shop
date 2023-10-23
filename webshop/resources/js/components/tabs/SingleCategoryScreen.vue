@@ -30,7 +30,7 @@
             </div>
 
             <div class="d-grid">
-                <button class="btn bg-primary text-white">Add to cart</button>
+                <button @click="addProductToCart(product.id, product.name)" class="btn bg-primary text-white">Add to cart</button>
             </div>
         </div>
     </div>
@@ -87,13 +87,20 @@ export default {
             showModal.value = true;
         }
 
+        function addProductToCart (product_id, product_name) {
+            axios.get(`/api/shopping-cart/add/${product_id}`)
+                .then(res => {
+                    alert(product_name + " added to the shopping cart.");
+                })
+        } 
+
         watchEffect(() => {
             let selectedCut = route.params.meat;
 
             if (meat_arr.includes(selectedCut)) {
                 typeOfCut.value = selectedCut.charAt(0).toUpperCase() + selectedCut.slice(1);
 
-                axios.get(`http://127.0.0.1:8000/api/products/${typeOfCut.value}`)
+                axios.get(`/api/products/${typeOfCut.value}`)
                     .then(res => {
                         products.value = res.data;
                     })
@@ -110,6 +117,7 @@ export default {
             modalText,
             modalTitle,
             showModalFunc,
+            addProductToCart,
         }
     }
 }

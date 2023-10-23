@@ -5,11 +5,11 @@
   </div>
 
   <div class="shopping-list rounded shadow p-3">
-    <div class="shopping-item d-flex mb-3 p-3" v-for="n in 5">
-      <div class="w-75 d-flex">
+    <div class="shopping-item d-flex mb-3 p-3" v-for="product in cart_products">
+      <div class="w-75 d-flex align-items-center">
         <!-- Test values. -->
-        <div class="col-4">Item {{ item }}</div>
-        <div>2x</div>
+        <div class="col-4">{{ product[0].name }}</div>
+        <div>{{ product[0].quantity }}</div>
       </div>
 
       <div class="w-25 d-flex justify-content-end align-items-center">
@@ -39,8 +39,27 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios';
+import { ref, watchEffect } from 'vue';
 
+export default {
+  setup () {
+    //Hard coded value for testing.
+    let user_id = 0;
+    let cart_products = ref();
+
+    watchEffect(() => {
+      axios.get(`/api/shopping-cart/get/${user_id}`)
+        .then(res => {
+          cart_products.value = res.data;
+          console.log(cart_products.value);
+        })
+    })
+
+    return {
+      cart_products,
+    }
+  }
 }
 </script>
 
