@@ -5,15 +5,14 @@
   </div>
 
   <div class="shopping-list rounded shadow p-3">
-    <div class="shopping-item d-flex mb-3 p-3" v-for="n in 5">
-      <div class="w-75 d-flex">
-        <!-- Test values. -->
-        <div class="col-4">Item {{ item }}</div>
-        <div>2x</div>
+    <div class="shopping-item d-flex mb-3 p-3" v-for="product in cartProducts">
+      <div class="w-75 d-flex align-items-center">
+        <div class="col-4">{{ product[0].name }}</div>
+        <div>{{ product[0].quantity }}</div>
       </div>
 
       <div class="w-25 d-flex justify-content-end align-items-center">
-        <div class="col-6">9,-</div>
+        <div class="col-6">{{ product[0].price }}</div>
         <button class="border-0 bg-transparent text-danger">
           <icon icon="fas-solid fa-trash" class="fs-5"></icon>
         </button>
@@ -23,7 +22,7 @@
     <hr>
 
     <div class="d-flex justify-content-end">
-      <div class="total p-lg-3 rounded">Total: 37,-</div>
+      <div class="total p-lg-3 rounded">Total: {{ total }}</div>
     </div>
   </div>
 
@@ -39,8 +38,35 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios';
+import { ref, watchEffect } from 'vue';
 
+export default {
+  setup () {
+    let userId = 0;
+    let cartProducts = ref();
+    let total = ref(0);
+
+    watchEffect(() => {
+      axios.get(`/api/shopping-cart/get/${userId}`)
+        .then(res => {
+          cartProducts.value = res.data;
+          calculateTotal();
+        })
+    })
+
+    function calculateTotal() {
+      cartProducts.value.forEach(el => {
+        let price = parseInt(el[0].price);
+        total.value += price;
+      });
+    } 
+
+    return {
+      cartProducts,
+      total,
+    }
+  }
 }
 </script>
 
