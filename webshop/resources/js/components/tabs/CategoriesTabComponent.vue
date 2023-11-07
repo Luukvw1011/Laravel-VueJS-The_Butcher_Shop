@@ -4,7 +4,7 @@
   </div>
 
   <div class="category-tiles">
-    <div class="category-tile rounded p-2 mb-3" v-for="meat in meat_arr">
+    <div class="category-tile rounded p-2 mb-3" v-for="meat in meatArr">
         <h4>{{ meat.name }}</h4>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi beatae reprehenderit harum provident saepe blanditiis quod quis quae? Neque natus perferendis omnis distinctio corrupti ex impedit minus, assumenda quod iure.</p>
         
@@ -23,7 +23,7 @@ export default {
   setup () {
     const router = useRouter();
 
-    let meat_arr = ref([
+    let meatArr = ref([
       {name: "Beef"},
       {name: "Poultry"},
       {name: "Pork"},
@@ -37,7 +37,7 @@ export default {
     }
 
     return {
-      meat_arr,
+      meatArr,
       navigateToCategory
     }
   }
