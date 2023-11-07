@@ -16,6 +16,7 @@ import HomeTabComponent from './components/tabs/HomeTabComponent.vue'
 import CartTabComponent from './components/tabs/CartTabComponent.vue'
 import CategoriesTabComponent from './components/tabs/CategoriesTabComponent.vue'
 import SingleCategoryScreen from './components/tabs/SingleCategoryScreen.vue'
+import AccountTabComponent from './components/tabs/AccountTabComponent.vue'
 
 //Create vue-router instance.
 import { createRouter, createWebHistory } from 'vue-router'
@@ -42,7 +43,10 @@ const router = createRouter({
             path: '/category/:meat',
             name: 'category',
             component: SingleCategoryScreen,
-            
+        },
+        {
+            path: '/account',
+            component: AccountTabComponent,
         }
     ]
 })
