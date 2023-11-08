@@ -5,10 +5,10 @@
         </div>
 
         <div class="d-flex justify-content-center justify-content-lg-end mt-lg-4">
-            <icon class="fs-4 d-none d-lg-block" icon="fa-solid fa-user"></icon>
+            <router-link class="text-white" to="/account"><icon class="fs-4 d-none d-lg-block" icon="fa-solid fa-user"></icon></router-link>
 
             <ul class="nav nav-pills p-2 flex-column mt-4 align-items-center align-items-lg-end">
-                <li class="nav-item d-lg-none">Account</li>
+                <li class="nav-item d-lg-none"><router-link to="/account">Account</router-link></li>
                 <li class="nav-item"><router-link to="/">Home</router-link></li>
                 <li class="nav-item"><router-link to="/categories">Categories</router-link></li>
                 <li class="nav-item"><router-link to="/sale">Sale</router-link></li>
