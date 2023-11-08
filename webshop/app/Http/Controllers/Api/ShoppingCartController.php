@@ -9,14 +9,12 @@ use App\Models\ShoppingCartItem;
 
 class ShoppingCartController extends Controller
 {
-    public function add($product_id) {
+    public function add($product_id, $quantity) {
         //User id is test data
         $user_id = 0;
 
-        //Quantity is test data
-        $quantity = 2;
-
         $product_price = Product::select("price")->where("id", $product_id)->get();
+        Product::where("id", $product_id)->decrement('stock', $quantity);
 
         return ShoppingCartItem::create([
             'user_id' => $user_id,

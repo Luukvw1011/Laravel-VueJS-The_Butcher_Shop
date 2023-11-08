@@ -9,6 +9,6 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function index($type) {
-        return Product::where('type', $type)->get();
+        return Product::where('type', $type)->where('stock', '>', 0)->get();
     }
 }
