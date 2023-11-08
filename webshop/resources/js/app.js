@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.css"
 //Add font awesome. 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash);
+library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash, faClockRotateLeft);
 
 //Create vue app instance.
 import { createApp } from 'vue';
