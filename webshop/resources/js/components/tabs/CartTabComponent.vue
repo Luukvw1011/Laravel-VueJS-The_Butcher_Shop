@@ -58,7 +58,8 @@ export default {
 
     function calculatePriceByProduct() {
       cartProducts.value.forEach(el => {
-        el[0].price = el[0].quantity * el[0].price.toFixed();
+        el[0].price = el[0].quantity * el[0].price;
+        el[0].price = el[0].price.toFixed(2);
       })
     }
 
