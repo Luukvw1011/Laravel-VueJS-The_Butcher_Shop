@@ -9,21 +9,37 @@ use App\Models\ShoppingCartItem;
 
 class ShoppingCartController extends Controller
 {
-    public function add($product_id) {
-        //User id is test data
+    public function add($product_id, $quantity) {
+        //test value
         $user_id = 0;
+        
+        $this->checkExistingProduct($product_id, $quantity, $user_id);
+    }
 
-        //Quantity is test data
-        $quantity = 2;
+    public function checkExistingProduct($product_id, $quantity, $user_id) {
+        $existingProduct = ShoppingCartItem::where("product_id", $product_id)->get();
 
-        $product_price = Product::select("price")->where("id", $product_id)->get();
+        if ($existingProduct->isEmpty()) {
+            $this->addNewProduct($product_id, $quantity, $user_id);
+        } else {
+            $this->addExistingProduct($product_id, $quantity, $user_id);
+        }
+    }
+
+    public function addNewProduct($product_id, $quantity, $user_id) {
+        Product::where("id", $product_id)->decrement('stock', $quantity);
 
         return ShoppingCartItem::create([
             'user_id' => $user_id,
             'product_id' => $product_id,
             'quantity' => $quantity,
-            'price' => floatval($product_price[0]->price)
+            'price' => 2
         ]);
+    } 
+
+    public function addExistingProduct($product_id, $quantity, $user_id) {
+        ShoppingCartItem::where("product_id", $product_id)->increment('quantity', $quantity);
+        Product::where("id", $product_id)->decrement('stock', $quantity);
     }
 
     public function getProducts($user_id) {

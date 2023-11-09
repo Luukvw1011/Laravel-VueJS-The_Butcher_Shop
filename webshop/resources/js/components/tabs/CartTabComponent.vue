@@ -51,9 +51,17 @@ export default {
       axios.get(`/api/shopping-cart/get/${userId}`)
         .then(res => {
           cartProducts.value = res.data;
+          calculatePriceByProduct();
           calculateTotal();
         })
     })
+
+    function calculatePriceByProduct() {
+      cartProducts.value.forEach(el => {
+        el[0].price = el[0].quantity * el[0].price;
+        el[0].price = el[0].price.toFixed(2);
+      })
+    }
 
     function calculateTotal() {
       cartProducts.value.forEach(el => {

@@ -23,14 +23,14 @@
                 <!-- This will be a image  -->
                 <img class="img-container align-self-center" :src='product.picture' alt="niet beschikbaar">
                 <div class="amount-container d-flex align-self-center align-items-center gap-2">
-                    <button>-</button>
-                    <span>0</span>
-                    <button>+</button>
+                    <button @click="decrementQuantity(product)">-</button>
+                    <span>{{ product.selectedQuantity }}</span>
+                    <button @click="incrementQuantity(product)">+</button>
                 </div>
             </div>
 
             <div class="d-grid">
-                <button @click="addProductToCart(product.id, product.name)" class="btn bg-primary text-white">Add to cart</button>
+                <button @click="addProductToCart(product.id, product.name, product.selectedQuantity)" class="btn bg-primary text-white">Add to cart</button>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@ export default {
         
         let products = ref(); 
 
-        let meat_arr = ['beef', 'poultry', 'pork', 'seafood', 'lamb', 'wild'];
+        let meatArr = ['beef', 'poultry', 'pork', 'seafood', 'lamb', 'wild'];
 
         function showModalFunc (text, title) {
             modalText.value = text;
@@ -87,22 +87,38 @@ export default {
             showModal.value = true;
         }
 
-        function addProductToCart (product_id, product_name) {
-            axios.get(`/api/shopping-cart/add/${product_id}`)
+        function addProductToCart (productId, productName, selectedQuantity) {
+            axios.get(`/api/shopping-cart/add/${productId}/${selectedQuantity}`)
                 .then(res => {
-                    alert(product_name + " added to the shopping cart.");
+                    alert(productName + " added to the shopping cart.");
                 })
         } 
+
+        function incrementQuantity(selectedProduct) {
+            if (selectedProduct.selectedQuantity < selectedProduct.stock) {
+                selectedProduct.selectedQuantity++;   
+            }
+        }
+
+        function decrementQuantity(selectedProduct) {
+            if (selectedProduct.selectedQuantity > 0) {
+                selectedProduct.selectedQuantity--;   
+            }
+        }
 
         watchEffect(() => {
             let selectedCut = route.params.meat;
 
-            if (meat_arr.includes(selectedCut)) {
+            if (meatArr.includes(selectedCut)) {
                 typeOfCut.value = selectedCut.charAt(0).toUpperCase() + selectedCut.slice(1);
 
                 axios.get(`/api/products/${typeOfCut.value}`)
                     .then(res => {
                         products.value = res.data;
+
+                        products.value.forEach(el => {
+                            el.selectedQuantity = 0;
+                        });
                     })
             } else {
                 //Error Message
@@ -118,6 +134,8 @@ export default {
             modalTitle,
             showModalFunc,
             addProductToCart,
+            incrementQuantity,
+            decrementQuantity,
         }
     }
 }
