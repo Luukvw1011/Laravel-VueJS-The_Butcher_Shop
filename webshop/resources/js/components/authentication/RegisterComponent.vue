@@ -83,7 +83,7 @@
     const v$ = useVuelidate(rules, formData);
 
     const userObject = reactive({
-        name: null,
+        full_name: null,
         email: null,
         password: null,
     });
@@ -101,9 +101,9 @@
         userObject.email = formData.email;
 
         if (formData.infix === null) {
-            userObject.name = [formData.firstname, formData.lastname].join(' ');
+            userObject.full_name = [formData.firstname, formData.lastname].join(' ');
         } else {
-            userObject.name = setFullnameString([
+            userObject.full_name = setFullnameString([
                 formData.firstname, 
                 formData.infix, 
                 formData.lastname
@@ -118,7 +118,17 @@
     }
 
     function processApiRequest(userObject) {
-        console.log(userObject)
+        // axios.post('/api/user/register', userObject)
+        //     .then(res => {
+        //         if (res.status == 200) {
+        //             alert(`User ${res.data.user.full_name} succesfully created`);
+        //         }
+
+        //         window.location.href = '/login';
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
     }
 </script>
 

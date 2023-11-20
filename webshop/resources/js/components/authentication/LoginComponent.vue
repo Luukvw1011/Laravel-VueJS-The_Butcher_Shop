@@ -50,7 +50,19 @@
         const result = await v$.value.$validate()
 
         if (result) {
-            console.log(userDataObject);
+            // axios.get('/sanctum/csrf-cookie').then(response => {
+            //     axios.post('/api/user/login', userDataObject)
+            //     .then(res => {
+            //         if(res.data == 'Login successfull') {
+            //             window.location.href = '/'; 
+            //         } else {
+            //             alert(res.data);
+            //         }
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //     })
+            // });
         }
     }
 </script>
