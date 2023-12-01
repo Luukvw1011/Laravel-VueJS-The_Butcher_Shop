@@ -4,22 +4,35 @@
   </div>
 
   <div class="account-info rounded shadow p-3">
-    <p>Username</p>
+    <p>{{ userData.name }}</p>
 
     <ul class="mb-5">
-      <li>Volledige naam</li>
-      <li>Email</li>
-      <li>*********</li>
+      <li>Email: {{ userData.email }}</li>
     </ul>
 
     <a href="#">Order history <icon class="ms-1" icon="fas-solid fa-clock-rotate-left"></icon></a>
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
+  import axios from 'axios';
+  import { reactive, watchEffect } from 'vue';
 
-}
+  const userData = reactive({
+    name: null,
+    email: null
+  });
+
+  watchEffect(() => {
+    axios.get('/api/user/authenticate')
+      .then(res => {
+        userData.name = res.data.name;
+        userData.email = res.data.email;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  })
 </script>
 
 <style scoped>

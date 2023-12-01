@@ -50,19 +50,19 @@
         const result = await v$.value.$validate()
 
         if (result) {
-            // axios.get('/sanctum/csrf-cookie').then(response => {
-            //     axios.post('/api/user/login', userDataObject)
-            //     .then(res => {
-            //         if(res.data == 'Login successfull') {
-            //             window.location.href = '/'; 
-            //         } else {
-            //             alert(res.data);
-            //         }
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //     })
-            // });
+            axios.get('/sanctum/csrf-cookie').then(response => {
+                axios.post('/api/user/login', userDataObject)
+                .then(res => {
+                    if(res.status == 200) {
+                        window.location.href = '/account'; 
+                    } else {
+                        alert(res.data);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            });
         }
     }
 </script>
