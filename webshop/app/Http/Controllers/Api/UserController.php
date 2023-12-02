@@ -35,7 +35,7 @@ class UserController extends Controller
         return $response;
     }
 
-    public function login(Request $request)
+    public function login (Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -49,5 +49,15 @@ class UserController extends Controller
         }
  
         return response('Wrong credentials', 401);
+    }
+
+    public function logout (Request $request) {
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+     
+        $request->session()->regenerateToken();
+
+        return response('User logged out', 200);
     }
 }

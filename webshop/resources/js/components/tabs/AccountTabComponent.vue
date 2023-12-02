@@ -4,35 +4,70 @@
   </div>
 
   <div class="account-info rounded shadow p-3">
-    <p>{{ userData.name }}</p>
+    <div v-if="loggedIn">
+      <p>{{ userData.name }}</p>
 
-    <ul class="mb-5">
-      <li>Email: {{ userData.email }}</li>
-    </ul>
+      <ul class="mb-5">
+        <li>Email: {{ userData.email }}</li>
+      </ul>
 
-    <a href="#">Order history <icon class="ms-1" icon="fas-solid fa-clock-rotate-left"></icon></a>
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="#">Order history <icon class="ms-1" icon="fas-solid fa-clock-rotate-left"></icon></a>
+        <button class="btn bg-primary text-white" @click="logout">Log out</button>
+      </div>
+    </div>
+
+    <div v-if="!loggedIn">
+      <p>Not logged in</p>
+
+      <hr>
+
+      <p>Create a new account or log in using the buttons below.</p>
+
+      <div class="d-flex space-between gap-2">
+        <router-link to="/login">
+          <button class="btn btn-primary">Log in</button>
+        </router-link>
+        
+        <router-link to="/register">
+          <button class="btn">Create new account</button>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
   import axios from 'axios';
-  import { reactive, watchEffect } from 'vue';
+  import { reactive, ref } from 'vue';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   const userData = reactive({
     name: null,
     email: null
   });
 
-  watchEffect(() => {
-    axios.get('/api/user/authenticate')
+  var loggedIn = ref(false);
+
+  axios.get('/api/user/authenticate')
+    .then(res => {
+      userData.name = res.data.name;
+      userData.email = res.data.email;
+
+      loggedIn.value = true;
+    });
+
+  function logout() {
+    axios.get('/api/user/logout')
       .then(res => {
-        userData.name = res.data.full_name;
-        userData.email = res.data.email;
+        if(res.status == 200) {
+          alert('User logged out');
+          router.push({ path: '/' });
+        } 
       })
-      .catch(err => {
-        console.log(err);
-      })
-  })
+  }
 </script>
 
 <style scoped>
