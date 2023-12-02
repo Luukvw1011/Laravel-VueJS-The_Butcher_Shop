@@ -5,6 +5,10 @@
   </div>
 
   <div class="shopping-list rounded shadow p-3">
+    <div v-if="cartProducts == 0">
+      <p>No products</p>
+    </div>
+
     <div class="shopping-item d-flex mb-3 p-3" v-for="product in cartProducts">
       <div class="w-75 d-flex align-items-center">
         <div class="col-4">{{ product[0].name }}</div>
@@ -13,7 +17,7 @@
 
       <div class="w-25 d-flex justify-content-end align-items-center">
         <div class="col-6">{{ product[0].price }}</div>
-        <button class="border-0 bg-transparent text-danger">
+        <button @click="deleteProduct(product[0].id)" class="border-0 bg-transparent text-danger">
           <icon icon="fas-solid fa-trash" class="fs-5"></icon>
         </button>
       </div>
@@ -37,45 +41,40 @@
 
 </template>
 
-<script>
-import axios from 'axios';
-import { ref, watchEffect } from 'vue';
+<script setup>
+  import axios from 'axios';
+  import { ref } from 'vue';
 
-export default {
-  setup () {
-    let userId = 0;
-    let cartProducts = ref();
-    let total = ref(0);
+  let cartProducts = ref(null);
+  let total = ref(0);
 
-    watchEffect(() => {
-      axios.get(`/api/shopping-cart/get/${userId}`)
-        .then(res => {
-          cartProducts.value = res.data;
-          calculatePriceByProduct();
-          calculateTotal();
-        })
+  axios.get(`/api/shopping-cart/get`)
+    .then(res => {
+      cartProducts.value = res.data;
+      calculatePriceByProduct();
+      calculateTotal();
     })
 
-    function calculatePriceByProduct() {
-      cartProducts.value.forEach(el => {
-        el[0].price = el[0].quantity * el[0].price;
-        el[0].price = el[0].price.toFixed(2);
-      })
-    }
-
-    function calculateTotal() {
-      cartProducts.value.forEach(el => {
-        let price = parseInt(el[0].price);
-        total.value += price;
-      });
-    } 
-
-    return {
-      cartProducts,
-      total,
-    }
+  function calculatePriceByProduct() {
+    cartProducts.value.forEach(el => {
+      el[0].price = el[0].quantity * el[0].price;
+      el[0].price = el[0].price.toFixed(2);
+    })
   }
-}
+
+  function calculateTotal() {
+    cartProducts.value.forEach(el => {
+      let price = parseInt(el[0].price);
+      total.value += price;
+    });
+  } 
+
+  function deleteProduct(product_id, product_name) {
+    axios.get(`/api/shopping-cart/delete/${product_id}`)
+      .then(() => {
+        alert("Product deleted from the shopping cart");
+      })
+  }
 </script>
 
 <style scoped>
