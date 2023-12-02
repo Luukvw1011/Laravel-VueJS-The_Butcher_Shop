@@ -6,44 +6,49 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ShoppingCartItem;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;   
 
 class ShoppingCartController extends Controller
 {
     public function add($product_id, $quantity) {
-        //test value
-        $user_id = 0;
-        
-        $this->checkExistingProduct($product_id, $quantity, $user_id);
+        $this->checkExistingProduct($product_id, $quantity);
     }
 
-    public function checkExistingProduct($product_id, $quantity, $user_id) {
+    public function checkExistingProduct($product_id, $quantity) {
         $existingProduct = ShoppingCartItem::where("product_id", $product_id)->get();
 
         if ($existingProduct->isEmpty()) {
-            $this->addNewProduct($product_id, $quantity, $user_id);
+            $this->addNewProduct($product_id, $quantity);
         } else {
-            $this->addExistingProduct($product_id, $quantity, $user_id);
+            $this->addExistingProduct($product_id, $quantity);
         }
     }
 
-    public function addNewProduct($product_id, $quantity, $user_id) {
+    public function addNewProduct($product_id, $quantity) {
         Product::where("id", $product_id)->decrement('stock', $quantity);
 
         return ShoppingCartItem::create([
-            'user_id' => $user_id,
+            'user_id' => Auth::user()['id'],
             'product_id' => $product_id,
             'quantity' => $quantity,
             'price' => 2
         ]);
     } 
 
-    public function addExistingProduct($product_id, $quantity, $user_id) {
-        ShoppingCartItem::where("product_id", $product_id)->increment('quantity', $quantity);
+    public function addExistingProduct($product_id, $quantity) {
+        ShoppingCartItem::where(
+            [
+                "product_id" => $product_id,
+                "user_id" => Auth::user()['id']
+            ])
+            ->increment('quantity', $quantity);
+
         Product::where("id", $product_id)->decrement('stock', $quantity);
     }
 
-    public function getProducts($user_id) {
-        $cart_product_objs = ShoppingCartItem::select("product_id", "quantity")->where("user_id", $user_id)->get();
+    public function getProducts() {
+        $cart_product_objs = ShoppingCartItem::select("product_id", "quantity")->where("user_id", Auth::user()['id'])->get();
         $cart_products = [];
 
         foreach($cart_product_objs as $object) {
@@ -58,5 +63,12 @@ class ShoppingCartController extends Controller
         }
 
         return $cart_products;
+    }
+
+    public function deleteProduct($product_id) {
+        return ShoppingCartItem::where([
+            "product_id" => $product_id,
+            "user_id" => Auth::user()['id']
+        ])->forceDelete();
     }
 }
