@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user/authenticate', function (Request $
 
 Route::post('user/register', [UserController::class, 'register']);
 Route::post('user/login', [UserController::class, 'login']);
+Route::get('user/logout', [UserController::class, 'logout']);
