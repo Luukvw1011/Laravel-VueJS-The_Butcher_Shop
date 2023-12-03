@@ -118,17 +118,17 @@
     }
 
     function processApiRequest(userObject) {
-        // axios.post('/api/user/register', userObject)
-        //     .then(res => {
-        //         if (res.status == 200) {
-        //             alert(`User ${res.data.user.full_name} succesfully created`);
-        //         }
+        axios.post('/api/user/register', userObject)
+            .then(res => {
+                if (res.status == 200) {
+                    alert(`User ${res.data.user.full_name} succesfully created`);
+                }
 
-        //         window.location.href = '/login';
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     })
+                window.location.href = '/login';
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 </script>
 

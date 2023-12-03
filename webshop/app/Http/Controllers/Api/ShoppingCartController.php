@@ -66,6 +66,14 @@ class ShoppingCartController extends Controller
     }
 
     public function deleteProduct($product_id) {
+        //This function needs to be optimized. 
+        $quantity = ShoppingCartItem::where([
+            "product_id" => 1,
+            "user_id" => 11
+        ])->pluck("quantity")->first();
+
+        Product::where("id", $product_id)->increment('stock', $quantity);
+
         return ShoppingCartItem::where([
             "product_id" => $product_id,
             "user_id" => Auth::user()['id']

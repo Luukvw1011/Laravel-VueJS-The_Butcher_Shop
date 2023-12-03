@@ -11,44 +11,25 @@
   </div>
 
   <div class="category-section mt-5">
-    <div class="rounded shadow border" v-for="animal in animals_arr">
-      <button @click="checkMeatType(animal)" class="border-0 bg-transparent">
+    <router-link v-for="animal in animals_arr" :to="{ name: 'category', params: { meat: animal.meat } }">
+      <div class="rounded shadow border">
         <img :src="'https://img.icons8.com/glyph-neue/52/' + animal.name + '.png'" :alt="animal.name">
-      </button>
-    </div>
+      </div>
+    </router-link>
   </div>
 </template>
 
-<script>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup>
+  import { ref } from 'vue';
 
-export default {
-  setup () {
-    let router = useRouter();
-
-    let animals_arr = ref([
-      {name: "cow"},
-      {name: "chicken"},
-      {name: "pig"},
-      {name: "fish-food"},
-      {name: "sheep"},
-      {name: "deer"},
-    ]);
-
-    let meat_arr = ['beef', 'poultry', 'pork', 'seafood', 'lamb', 'wild'];
-
-    function checkMeatType (animal) {
-      let index = animals_arr.value.indexOf(animal);
-      router.push(`/category/${meat_arr[index]}`)
-    }
-
-    return {
-      animals_arr,
-      checkMeatType,
-    }
-  }
-}
+  let animals_arr = ref([
+    {name: "cow", meat: "beef"},
+    {name: "chicken", meat: "poultry"},
+    {name: "pig", meat: "pork"},
+    {name: "fish-food", meat: "seafood"},
+    {name: "sheep", meat: "lamb"},
+    {name: "deer", meat: "wild"},
+  ]);
 </script>
 
 <style scoped>

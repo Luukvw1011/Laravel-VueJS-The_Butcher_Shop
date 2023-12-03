@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 //Create vue-router instance.
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from './routes'

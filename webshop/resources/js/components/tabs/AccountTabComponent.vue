@@ -53,7 +53,7 @@
 
   axios.get('/api/user/authenticate')
     .then(res => {
-      userData.name = res.data.name;
+      userData.name = res.data.full_name;
       userData.email = res.data.email;
 
       loggedIn.value = true;
