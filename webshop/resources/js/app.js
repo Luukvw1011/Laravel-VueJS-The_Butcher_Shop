@@ -7,6 +7,9 @@ import { faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faT
 
 library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash, faClockRotateLeft);
 
+//Add Pinia
+import { createPinia } from 'pinia';
+
 //Create vue app instance.
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -18,6 +21,7 @@ import router from "./routing/router";
 import { vfmPlugin } from 'vue-final-modal'
 
 createApp(App)
+    .use(createPinia())
     .use(vfmPlugin({
         key: '$vfm',
         componentName: 'VueFinalModal',

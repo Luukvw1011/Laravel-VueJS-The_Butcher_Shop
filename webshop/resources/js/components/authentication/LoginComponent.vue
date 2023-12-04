@@ -28,8 +28,8 @@
 
 <script setup>
     import { reactive, computed } from 'vue';
-    import useVuelidate from '@vuelidate/core';
-    import { required, email } from '@vuelidate/validators';
+    // import useVuelidate from '@vuelidate/core';
+    // import { required, email } from '@vuelidate/validators';
     import axios from 'axios';
 
     const rules = computed(() => {
