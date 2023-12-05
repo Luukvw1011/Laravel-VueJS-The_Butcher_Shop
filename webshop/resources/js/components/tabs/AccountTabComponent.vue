@@ -5,7 +5,7 @@
 
   <div class="account-info rounded shadow p-3">
     <div v-if="loggedIn">
-      <p>{{ userData.name }}</p>
+      <p>{{ userData.full_name }}</p>
 
       <ul class="mb-5">
         <li>Email: {{ userData.email }}</li>
@@ -39,25 +39,19 @@
 
 <script setup>
   import axios from 'axios';
-  import { reactive, ref } from 'vue';
+  import { ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useUserStore } from '../../stores/user';
 
   const router = useRouter();
 
-  const userData = reactive({
-    name: null,
-    email: null
-  });
-
   var loggedIn = ref(false);
 
-  axios.get('/api/user/authenticate')
-    .then(res => {
-      userData.name = res.data.full_name;
-      userData.email = res.data.email;
+  const userData = await useUserStore().getUserData();
 
-      loggedIn.value = true;
-    });
+  if (userData) {
+    loggedIn.value = true;
+  }
 
   function logout() {
     axios.get('/api/user/logout')
