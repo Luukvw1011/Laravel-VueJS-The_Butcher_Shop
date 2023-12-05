@@ -1,6 +1,6 @@
 <template>
     <div class="sub-header rounded shadow p-2 mb-3">
-        <h2>{{ typeOfCut }}</h2>
+        <h2>{{ route.params.meat }}</h2>
         <!-- <span><img :src="'https://img.icons8.com/glyph-neue/52/' + animal.name + '.png'" :alt="animal.name"></span> -->
     </div>
 
@@ -63,82 +63,62 @@
     </vue-final-modal>
 </template>
 
-<script>
-import { useRoute } from 'vue-router'
-import { ref, watchEffect } from 'vue'
-import axios from 'axios'
+<script setup>
+    import { useRoute } from 'vue-router';
+    import { ref, watch } from 'vue'
+    import axios from 'axios'
 
-export default {
-    setup () {
-        const route = useRoute();
-        const typeOfCut = ref();
-        
-        let showModal = ref(false);
-        let modalTitle = ref("");
-        let modalText = ref("");
-        
-        let products = ref(); 
+    const route = useRoute();
 
-        let meatArr = ['beef', 'poultry', 'pork', 'seafood', 'lamb', 'wild'];
+    const refreshFlag = ref(0);
 
-        function showModalFunc (text, title) {
-            modalText.value = text;
-            modalTitle.value = title;
-            showModal.value = true;
-        }
+    var products = ref();
 
-        function addProductToCart (productId, productName, selectedQuantity) {
-            axios.get(`/api/shopping-cart/add/${productId}/${selectedQuantity}`)
-                .then(res => {
-                    alert(productName + " added to the shopping cart.");
-                })
-        } 
+    var showModal = ref(false);
+    var modalTitle = ref("");
+    var modalText = ref("");
 
-        function incrementQuantity(selectedProduct) {
-            if (selectedProduct.selectedQuantity < selectedProduct.stock) {
-                selectedProduct.selectedQuantity++;   
-            }
-        }
+    watch(() => refreshFlag.value, () => {
+        getProducts();
+    })
 
-        function decrementQuantity(selectedProduct) {
-            if (selectedProduct.selectedQuantity > 0) {
-                selectedProduct.selectedQuantity--;   
-            }
-        }
+    function getProducts () {
+        axios.get(`/api/products/${route.params.meat}`)
+            .then(res => {
+                products.value = res.data;
+                products.value.forEach(el => {
+                    el.selectedQuantity = 0;
+                });
+            })
+    }
 
-        watchEffect(() => {
-            let selectedCut = route.params.meat;
+    function showModalFunc (text, title) {
+        modalText.value = text;
+        modalTitle.value = title;
+        showModal.value = true;
+    }
 
-            if (meatArr.includes(selectedCut)) {
-                typeOfCut.value = selectedCut.charAt(0).toUpperCase() + selectedCut.slice(1);
+    function addProductToCart (productId, productName, selectedQuantity) {
+        axios.get(`/api/shopping-cart/add/${productId}/${selectedQuantity}`)
+            .then(res => {
+                alert(productName + " added to the shopping cart.");
+                refreshFlag.value++;
+            })
+    } 
 
-                axios.get(`/api/products/${typeOfCut.value}`)
-                    .then(res => {
-                        products.value = res.data;
-
-                        products.value.forEach(el => {
-                            el.selectedQuantity = 0;
-                        });
-                    })
-            } else {
-                //Error Message
-                typeOfCut.value = "empty";
-            } 
-        })
-
-        return {
-            typeOfCut,
-            products,
-            showModal,
-            modalText,
-            modalTitle,
-            showModalFunc,
-            addProductToCart,
-            incrementQuantity,
-            decrementQuantity,
+    function incrementQuantity(selectedProduct) {
+        if (selectedProduct.selectedQuantity < selectedProduct.stock) {
+            selectedProduct.selectedQuantity++;   
         }
     }
-}
+
+    function decrementQuantity(selectedProduct) {
+        if (selectedProduct.selectedQuantity > 0) {
+            selectedProduct.selectedQuantity--;   
+        }
+    }
+
+    getProducts();
 </script>
 
 <style scoped>

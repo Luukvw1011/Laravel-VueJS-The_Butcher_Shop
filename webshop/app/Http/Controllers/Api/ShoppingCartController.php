@@ -48,7 +48,9 @@ class ShoppingCartController extends Controller
     }
 
     public function getProducts() {
-        $cart_product_objs = ShoppingCartItem::select("product_id", "quantity")->where("user_id", Auth::user()['id'])->get();
+        $user_id = Auth::user()['id'];
+
+        $cart_product_objs = ShoppingCartItem::select("product_id", "quantity")->where("user_id", $user_id)->get();
         $cart_products = [];
 
         foreach($cart_product_objs as $object) {

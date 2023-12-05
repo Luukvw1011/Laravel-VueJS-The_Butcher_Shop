@@ -71,7 +71,7 @@
 
   function deleteProduct(product_id, product_name) {
     axios.get(`/api/shopping-cart/delete/${product_id}`)
-      .then(() => {
+      .then(res => {
         alert("Product deleted from the shopping cart");
       })
   }
