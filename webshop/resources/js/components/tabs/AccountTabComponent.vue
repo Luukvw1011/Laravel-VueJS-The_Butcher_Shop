@@ -39,17 +39,16 @@
 
 <script setup>
   import axios from 'axios';
-  import { ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { ref } from 'vue';
   import { useUserStore } from '../../stores/user';
 
   const router = useRouter();
-
+  
+  var userData = ref(await useUserStore().getUserData());
   var loggedIn = ref(false);
 
-  const userData = await useUserStore().getUserData();
-
-  if (userData) {
+  if (userData.value) {
     loggedIn.value = true;
   }
 
