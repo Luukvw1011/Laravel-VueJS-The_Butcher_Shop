@@ -11,7 +11,7 @@
                 <li class="nav-item d-lg-none"><router-link to="/account">Account</router-link></li>
                 <li class="nav-item"><router-link to="/">Home</router-link></li>
                 <li class="nav-item"><router-link to="/categories">Categories</router-link></li>
-                <!-- <li class="nav-item"><router-link to="/sale">Sale</router-link></li> -->
+                <li class="nav-item"><router-link to="/sale">Sale</router-link></li>
             </ul>
         </div>
 

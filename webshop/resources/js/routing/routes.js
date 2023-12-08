@@ -7,6 +7,7 @@ import AccountTabComponent from '../components/tabs/AccountTabComponent.vue'
 import LoginComponent from '../components/authentication/LoginComponent.vue'
 import RegisterComponent from '../components/authentication/RegisterComponent.vue'
 import DashboardLayout from '../components/dashboard/DashboardLayout.vue'
+import SalesTabComponent from '../components/tabs/SalesTabComponent.vue';
 
 const routes = [
     {
@@ -42,6 +43,10 @@ const routes = [
             {
                 path: '/account',
                 component: AccountTabComponent,
+            },
+            {
+                path: '/sale',
+                component: SalesTabComponent,
             }
         ]
     }

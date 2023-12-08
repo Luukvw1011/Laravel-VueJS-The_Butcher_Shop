@@ -20,7 +20,6 @@
             </div>
 
             <div class="d-flex flex-column mb-3">
-                <!-- This will be a image  -->
                 <img class="img-container align-self-center" :src='product.picture' alt="niet beschikbaar">
                 <div class="amount-container d-flex align-self-center align-items-center gap-2">
                     <button @click="decrementQuantity(product)">-</button>
