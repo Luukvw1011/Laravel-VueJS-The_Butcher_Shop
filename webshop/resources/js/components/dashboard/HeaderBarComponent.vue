@@ -1,7 +1,7 @@
 <template>
     <div class="bg-primary text-white d-flex align-items-center px-2 justify-content-between">
         <icon @click="openSideBar" class="fs-1 d-lg-none" icon="fa-solid fa-bars" />
-        <h2>Webshop</h2>
+        <h2>The Butcher shop</h2>
     </div>
 </template>
 
