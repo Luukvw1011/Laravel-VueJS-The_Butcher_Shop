@@ -26,11 +26,15 @@
     <div class="mb-3">Sales information</div>
 
     <div class="w-100 d-flex d-lg-none justify-content-between">
-        <button class="w-75 btn bg-primary text-white">Info & preperation</button>
+        <button @click="dropdownHeadToggle = !dropdownHeadToggle" class="w-75 btn bg-primary text-white">Info & preperation</button>
         <button class="btn bg-primary text-white">Add to cart</button>
     </div>
 
     <button class="btn bg-primary text-white align-self-end d-none d-lg-block">Add to cart</button>
+
+    <div v-if="dropdownHeadToggle">
+        dropdown
+    </div>
   </div>
 
   <hr class="text-white">
@@ -53,17 +57,24 @@
         <div class="mb-3">Sales information</div>
 
         <div class="w-100 d-flex d-lg-none justify-content-between">
-            <button class="w-75 btn bg-primary text-white">Info dropdown</button>
+            <button @click="dropdownInfoToggles[i] = !dropdownInfoToggles[i]" class="w-75 btn bg-primary text-white">Info dropdown</button>
             <button class="btn bg-primary text-white">Add to cart</button>
         </div>
 
         <button class="add-to-cart-btn btn bg-primary text-white align-sm-self-end d-none d-lg-block">Add to cart</button>
+
+        <div v-if="dropdownInfoToggles[i]">
+            dropdown
+        </div>
     </div>
   </div>
 </template>
 
 <script setup>
-    
+    import { ref } from 'vue';
+
+    var dropdownInfoToggles = ref([false, false, false]);
+    var dropdownHeadToggle = ref(false)
 </script>
 
 <style scoped>
