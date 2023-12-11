@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('sale', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id')->unsigned();
-            $table->timestamp('sale_date');
             $table->decimal('sale_price');
+            $table->text('preperation')->nullable();
+            $table->tinyinteger('special');
             $table->timestamps();
         });
     }
