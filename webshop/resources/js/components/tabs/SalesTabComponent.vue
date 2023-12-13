@@ -5,11 +5,11 @@
 
   <span class="text-white">Special sale</span>
 
-  <div class="product-card mt-2 p-2 rounded d-flex align-items-center flex-column" v-for="product in special">
+  <div class="product-card-special product-card mt-2 p-2 rounded d-flex align-items-center flex-column" v-for="product in special">
     <div class="align-self-start d-block d-lg-none">{{ product.name }}</div>
     <div class="justify-content-between w-100 d-none d-lg-flex">
         <div>{{ product.name }}</div>
-        <button class="border-0 bg-transparent">
+        <button @click="showModalFunc(product.description, product.name, product.picture)" class="border-0 bg-transparent">
             <icon icon="fa-solid fa-info-circle" class="fs-4"></icon>
         </button>
     </div>
@@ -33,7 +33,10 @@
     </div>
 
     <div class="w-100 d-flex d-lg-none justify-content-between mb-2">
-        <button @click="isExpandedHead = !isExpandedHead" class="w-75 btn bg-primary text-white">Info & Preperation</button>
+        <button @click="isExpandedHead = !isExpandedHead" class="w-75 btn bg-primary text-white">
+            <span v-show="!isExpandedHead">Preperation & description</span>
+            <span v-show="isExpandedHead">Close</span>
+        </button>
         <button class="btn bg-primary text-white">Add to cart</button>
     </div>
 
@@ -61,13 +64,13 @@
 
   <span class="text-white">Weekly sale</span>
 
-  <div class="d-lg-flex d-inline gap-5">
+  <div class="product-cards-mobile d-lg-flex d-inline gap-5">
     <div v-for="(product, i) in products" class="product-card mt-2 p-2 rounded d-flex align-items-center flex-column my-3">
         <div class="align-self-start d-inline d-lg-none">{{ product.name }}</div>
         
         <div class="justify-content-between w-100 d-none d-lg-flex">
             <div>{{ product.name }}</div>
-            <button class="border-0 bg-transparent">
+            <button @click="showModalFunc(product.description, product.name, product.picture)" class="border-0 bg-transparent">
                 <icon icon="fa-solid fa-info-circle" class="fs-4"></icon>
             </button>
         </div>
@@ -84,7 +87,10 @@
         </div>
 
         <div class="w-100 d-flex d-lg-none justify-content-between mb-2">
-            <button @click="isExpandedSub[i] = !isExpandedSub[i]" class="w-75 btn bg-primary text-white">Info dropdown</button>
+            <button @click="isExpandedSub[i] = !isExpandedSub[i]" class="w-75 btn bg-primary text-white">
+                <span v-show="!isExpandedSub[i]">Description</span>
+                <span v-show="isExpandedSub[i]">Close</span>
+            </button>
             <button class="btn bg-primary text-white">Add to cart</button>
         </div>
 
@@ -97,6 +103,24 @@
         </Collapse>
     </div>
   </div>
+
+    <vue-final-modal v-model="showModal" classes="modal-container" content-class="modal-content">
+        <div class="modal-header d-flex justify-content-between">
+            <span class="modal__title">{{ modalTitle }}</span>
+            <span class="close-modal-span" @click="showModal = false"><icon icon="fa-solid fa-close"></icon></span>
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between">
+            <div>
+                <span class="fw-bold">Description</span>
+                <p class="my-2">{{ modalDescription }}</p>
+            </div>
+
+            <img class="align-self-end" width="250" height="200" :src="modalPicture" alt="Not available">
+        </div>
+    </vue-final-modal>
 </template>
 
 <script setup>
@@ -106,6 +130,11 @@
 
     var special = ref([]);
     var products = ref();
+
+    var showModal = ref(false);
+    var modalTitle = ref("");
+    var modalDescription = ref("");
+    var modalPicture = ref("");
 
     const isExpandedHead = ref(false);
     const isExpandedSub = ref([false, false, false]);
@@ -130,6 +159,13 @@
             })   
     }
 
+    function showModalFunc (text, title, picture) {
+        modalDescription.value = text;
+        modalTitle.value = title;
+        modalPicture = picture;
+        showModal.value = true;
+    }
+
     getProducts();
 </script>
 
@@ -142,5 +178,24 @@
         .add-to-cart-btn {
             width: 100%;
         }
+    }
+
+    :deep(.modal-container) {
+        display: flex;
+        justify-content: center;
+        padding: 60px;
+    }
+
+    :deep(.modal-content) {
+        display: flex;
+        padding: 1rem;
+        width: 100vw;
+        background: #a5a5a5;
+        border-radius: 5px;
+        overflow-y: auto;
+    }
+    .modal__title {
+        font-size: 1.5rem;
+        font-weight: 700;
     }
 </style>
