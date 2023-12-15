@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ShoppingCartController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\SaleController;
 use Illuminate\Http\Response;   
 
 Route::get('products/{type}', [ProductController::class, 'index']);
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user/authenticate', function (Request $
 Route::post('user/register', [UserController::class, 'register']);
 Route::post('user/login', [UserController::class, 'login']);
 Route::get('user/logout', [UserController::class, 'logout']);
+
+Route::get('sale/get', [SaleController::class, 'getSaleProducts']);

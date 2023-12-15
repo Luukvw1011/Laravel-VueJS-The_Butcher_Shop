@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
                     "stock" => 2,
                     "picture" => fake()->imageUrl(640, 480, $data[0], true),
                     "price" => fake()->numberBetween(1, 20),
+                    "on_sale" => 0
                 ]);
             }
 

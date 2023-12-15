@@ -50,8 +50,8 @@
 
 <script setup>
     import { reactive, ref, computed } from 'vue';
-    // import useVuelidate from '@vuelidate/core';
-    // import { required, email, sameAs } from '@vuelidate/validators';
+    import useVuelidate from '@vuelidate/core';
+    import { required, email, sameAs } from '@vuelidate/validators';
     import axios from 'axios';
 
     const nameErrorMessage = "All fields must be filled in.";
@@ -80,7 +80,7 @@
         }
     })
 
-    // const v$ = useVuelidate(rules, formData);
+    const v$ = useVuelidate(rules, formData);
 
     const userObject = reactive({
         full_name: null,
