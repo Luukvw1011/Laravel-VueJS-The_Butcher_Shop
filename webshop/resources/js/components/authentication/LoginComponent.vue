@@ -55,12 +55,10 @@
                 .then(res => {
                     if(res.status == 200) {
                         window.location.href = '/account'; 
-                    } else {
-                        alert(res.data);
-                    }
+                    } 
                 })
                 .catch(err => {
-                    console.log(err);
+                    alert(err.response.data);
                 })
             });
         }
