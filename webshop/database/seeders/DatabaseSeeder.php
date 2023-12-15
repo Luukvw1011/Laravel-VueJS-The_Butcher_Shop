@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,5 +38,11 @@ class DatabaseSeeder extends Seeder
         }
 
         fclose($csvFile);
+
+        User::create([
+            "full_name" => "test user",
+            "email" => "test@outlook.com",
+            "password" => Hash::make("password"),
+        ]);
     }
 }

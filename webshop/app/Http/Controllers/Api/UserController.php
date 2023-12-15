@@ -41,14 +41,24 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
- 
-            return response('Logged in', 200);
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if($user) {
+            if (Hash::check($credentials['password'], $user->password)) {
+                if (Auth::attempt($credentials)) {
+                    $request->session()->regenerate();
+         
+                    return response('Logged in', 200);
+                }
+         
+                return response('error', 401);
+            } 
+
+            return response('Password incorrect', 401);
+        } else {
+            return response("Email address doesn't exist.", 401);
         }
- 
-        return response('Wrong credentials', 401);
     }
 
     public function logout (Request $request) {
