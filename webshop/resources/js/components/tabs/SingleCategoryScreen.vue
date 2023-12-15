@@ -1,6 +1,6 @@
 <template>
     <div class="sub-header rounded shadow p-2 mb-3">
-        <h2>{{ route.params.meat }}</h2>
+        <h2>{{ category }}</h2>
         <!-- <span><img :src="'https://img.icons8.com/glyph-neue/52/' + animal.name + '.png'" :alt="animal.name"></span> -->
     </div>
 
@@ -70,6 +70,8 @@
     const route = useRoute();
 
     const refreshFlag = ref(0);
+
+    var category = route.params.meat.charAt(0).toUpperCase() + route.params.meat.slice(1);
 
     var products = ref();
 

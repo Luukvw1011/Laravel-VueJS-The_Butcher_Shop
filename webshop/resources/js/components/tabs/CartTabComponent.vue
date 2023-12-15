@@ -43,17 +43,30 @@
 
 <script setup>
   import axios from 'axios';
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
 
-  let cartProducts = ref(null);
-  let total = ref(0);
+  var refreshFlag = ref(0);
+  
+  var cartProducts = ref(null);
+  var total = ref(0);
 
-  axios.get(`/api/shopping-cart/get`)
+  watch(() => refreshFlag.value, () => {
+    getProducts();
+  })
+
+  function getProducts() {
+    axios.get(`/api/shopping-cart/get`)
     .then(res => {
       cartProducts.value = res.data;
-      calculatePriceByProduct();
-      calculateTotal();
+
+      if (cartProducts.value.length) {      
+        calculatePriceByProduct();
+        calculateTotal();  
+      } else {
+        total.value = 0;
+      }
     })
+  }
 
   function calculatePriceByProduct() {
     cartProducts.value.forEach(el => {
@@ -66,15 +79,19 @@
     cartProducts.value.forEach(el => {
       let price = parseInt(el[0].price);
       total.value += price;
-    });
+    }); 
   } 
 
-  function deleteProduct(product_id, product_name) {
+  function deleteProduct(product_id) {
     axios.get(`/api/shopping-cart/delete/${product_id}`)
       .then(res => {
         alert("Product deleted from the shopping cart");
+        refreshFlag.value++;
+        total.value = 0;
       })
   }
+
+  getProducts();
 </script>
 
 <style scoped>
