@@ -8,7 +8,7 @@ use App\Models\Sale;
 
 class SaleController extends Controller
 {
-    public function getSaleProducts() {
+    public static function getSaleProducts() {
         return Sale::join('product', 'product.id', '=', 'sale.product_id')->get();
     }
 }

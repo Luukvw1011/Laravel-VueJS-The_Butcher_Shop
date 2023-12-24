@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ShoppingCartItem;
+use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;   
 
@@ -50,18 +51,12 @@ class ShoppingCartController extends Controller
     public function getProducts() {
         $user_id = Auth::user()['id'];
 
-        $cart_product_objs = ShoppingCartItem::select("product_id", "quantity")->where("user_id", $user_id)->get();
-        $cart_products = [];
+        $cart_products = ShoppingCartItem::join('product', 'product.id', '=', 'cart.product_id')->where('user_id', $user_id)->get();
 
-        foreach($cart_product_objs as $object) {
-            $product = Product::where("id", $object->product_id)->get();;
-
-            $product->map(function ($item) use ($object) {
-                $item['quantity'] = $object->quantity;
-                return $item;
-            });
-
-            array_push($cart_products, $product);
+        foreach($cart_products as $product) {
+            if ($product->on_sale) {
+                $product->price = Sale::where("product_id", $product->id)->pluck("sale_price")[0];
+            } 
         }
 
         return $cart_products;

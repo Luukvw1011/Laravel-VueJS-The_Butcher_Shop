@@ -11,8 +11,7 @@
         <li>Email: {{ userData.email }}</li>
       </ul>
 
-      <div class="d-flex justify-content-between align-items-center">
-        <a href="#">Order history <icon class="ms-1" icon="fas-solid fa-clock-rotate-left"></icon></a>
+      <div class="d-flex justify-content-end">
         <button class="btn bg-primary text-white" @click="logout">Log out</button>
       </div>
     </div>
