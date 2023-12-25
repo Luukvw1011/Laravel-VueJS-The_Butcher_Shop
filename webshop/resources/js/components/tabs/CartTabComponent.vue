@@ -5,9 +5,7 @@
   </div>
 
   <div class="shopping-list rounded shadow p-3">
-    <div v-if="cartProducts == 0">
-      <p>No products</p>
-    </div>
+    <p v-if="!loggedIn">Please login to use the shopping cart. <a href="/login">click here</a></p>
 
     <div class="shopping-item d-flex mb-3 p-3" v-for="product in cartProducts">
       <div class="w-75 d-flex align-items-center">
@@ -44,14 +42,24 @@
 <script setup>
   import axios from 'axios';
   import { ref, watch } from 'vue';
+  import { useUserStore } from '../../stores/user';
 
   var refreshFlag = ref(0);
   
   var cartProducts = ref(null);
   var total = ref(0);
 
+  var userData = ref(await useUserStore().getUserData());
+  var loggedIn = ref(false);
+
+  if (userData.value) {
+    loggedIn.value = true;
+  }
+
   watch(() => refreshFlag.value, () => {
-    getProducts();
+    if (loggedIn.value) {
+      getProducts();    
+    }
   })
 
   function getProducts() {
@@ -91,7 +99,9 @@
       })
   }
 
-  getProducts();
+  if (loggedIn.value) {
+    getProducts();    
+  }
 </script>
 
 <style scoped>

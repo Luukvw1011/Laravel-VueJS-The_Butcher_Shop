@@ -27,23 +27,15 @@
     </nav>
 </template>
 
-<script>
-export default {
-    setup() {
-        function closeSideBar () {
-            document.getElementById("sidebar").classList.add("d-none");
-        }
-
-        function navigateToShoppingCart () {
-            window.location.href = "/shopping_cart"
-        }
-
-        return {
-            closeSideBar,
-            navigateToShoppingCart,
-        }
+<script setup>
+    function closeSideBar () {
+        document.getElementById("sidebar").classList.add("d-none");
     }
-}
+
+    function navigateToShoppingCart () {
+        window.location.href = "/shopping_cart";
+    }
+
 </script>
 
 <style scoped>

@@ -100,6 +100,7 @@
     import { useRoute } from 'vue-router';
     import { ref, watch } from 'vue'
     import axios from 'axios'
+    import { useUserStore } from '../../stores/user';
 
     const route = useRoute();
 
@@ -113,6 +114,8 @@
     var showModal = ref(false);
     var modalTitle = ref("");
     var modalText = ref("");
+
+    var userData = ref(await useUserStore().getUserData());
 
     watch(() => refreshFlag.value, () => {
         getProducts();
@@ -149,11 +152,15 @@
     }
 
     function addProductToCart (productId, productName, selectedQuantity) {
-        axios.get(`/api/shopping-cart/add/${productId}/${selectedQuantity}`)
+        if (userData.value) {
+            axios.get(`/api/shopping-cart/add/${productId}/${selectedQuantity}`)
             .then(res => {
                 alert(productName + " added to the shopping cart.");
                 refreshFlag.value++;
-            })
+            })   
+        } else {
+            alert("Please login to use the shopping cart.");
+        }
     } 
 
     function incrementQuantity(selectedProduct) {
