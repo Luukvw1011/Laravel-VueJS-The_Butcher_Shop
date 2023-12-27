@@ -1,13 +1,14 @@
 //Import vue components.
-import HomeTabComponent from '../components/tabs/HomeTabComponent.vue'
-import CartTabComponent from '../components/tabs/CartTabComponent.vue'
-import CategoriesTabComponent from '../components/tabs/CategoriesTabComponent.vue'
-import SingleCategoryScreen from '../components/tabs/SingleCategoryScreen.vue'
-import AccountTabComponent from '../components/tabs/AccountTabComponent.vue'
-import LoginComponent from '../components/authentication/LoginComponent.vue'
-import RegisterComponent from '../components/authentication/RegisterComponent.vue'
-import DashboardLayout from '../components/dashboard/DashboardLayout.vue'
+import HomeTabComponent from '../components/tabs/HomeTabComponent.vue';
+import CartTabComponent from '../components/tabs/CartTabComponent.vue';
+import CategoriesTabComponent from '../components/tabs/CategoriesTabComponent.vue';
+import SingleCategoryComponent from '../components/tabs/SingleCategoryScreen.vue';
+import AccountTabComponent from '../components/tabs/AccountTabComponent.vue';
+import LoginComponent from '../components/authentication/LoginComponent.vue';
+import RegisterComponent from '../components/authentication/RegisterComponent.vue';
+import DashboardLayout from '../components/dashboard/DashboardLayout.vue';
 import SalesTabComponent from '../components/tabs/SalesTabComponent.vue';
+import CheckoutComponent from '../components/tabs/CheckoutComponent.vue';
 
 const routes = [
     {
@@ -38,7 +39,7 @@ const routes = [
             {
                 path: '/category/:meat',
                 name: 'category',
-                component: SingleCategoryScreen
+                component: SingleCategoryComponent
             },
             {
                 path: '/account',
@@ -47,6 +48,10 @@ const routes = [
             {
                 path: '/sale',
                 component: SalesTabComponent,
+            },
+            {
+                path: '/checkout',
+                component: CheckoutComponent,
             }
         ]
     }

@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.css"
 //Add font awesome. 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash, faClockRotateLeft, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash, faClockRotateLeft);
+library.add(faBars, faXmark, faUser, faCartShopping, faArrowLeft, faInfoCircle, faTrash, faClockRotateLeft, faCircleCheck);
 
 //Add Pinia
 import { createPinia } from 'pinia';
