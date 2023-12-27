@@ -28,13 +28,17 @@
     </div>
   </div>
 
-  <div class="d-grid d-lg-none mt-3">
-    <button type="button" class="btn bg-primary text-white border-0 p-3 fs-5">Checkout</button>
+  <div v-if="loggedIn" class="d-grid d-lg-none mt-3">
+    <button type="button" class="btn bg-primary text-white border-0 p-3 fs-5">
+      <a class="text-white text-decoration-none" href="/checkout">Checkout</a>
+    </button>
   </div>
 
-  <div class="d-none d-lg-flex my-3 justify-content-between align-items-center">
+  <div class="d-none d-lg-flex my-3 justify-content-between align-items-center" v-if="loggedIn">
     <a href="/"><icon icon="fas-solid fa-arrow-left"></icon> Back to shop</a>
-    <button type="button" class="btn bg-primary text-white border-0 p-3 fs-5">Checkout</button>
+    <button type="button" class="btn bg-primary text-white border-0 p-3 fs-5">
+      <a class="text-white text-decoration-none" href="/checkout">Checkout</a>
+    </button>
   </div>
 
 </template>

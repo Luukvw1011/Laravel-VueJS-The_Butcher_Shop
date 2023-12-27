@@ -76,4 +76,8 @@ class ShoppingCartController extends Controller
             "user_id" => Auth::user()['id']
         ])->forceDelete();
     }
+
+    public function delete() {
+        ShoppingCartItem::where("user_id", Auth::user()['id'])->forceDelete();
+    }
 }

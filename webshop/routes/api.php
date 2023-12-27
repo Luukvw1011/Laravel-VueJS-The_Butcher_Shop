@@ -14,6 +14,7 @@ Route::get('products/{type}', [ProductController::class, 'index']);
 Route::get('shopping-cart/add/{product_id}/{quantity}', [ShoppingCartController::class, 'add']);
 Route::get('shopping-cart/get', [ShoppingCartController::class, 'getProducts']);
 Route::get('shopping-cart/delete/{product_id}', [ShoppingCartController::class, 'deleteProduct']);
+Route::get('shopping-cart/delete-all', [ShoppingCartController::class, 'delete']);
 
 Route::middleware('auth:sanctum')->get('/user/authenticate', function (Request $request) {
     return $request->user();
